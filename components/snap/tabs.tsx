@@ -12,10 +12,10 @@ export default function SnapTabs({ form }: { form: any }) {
     <>
       <Tabs defaultValue='screenshot' className='w-full'>
         <TabsList className='grid w-full grid-cols-2'>
-          <TabsTrigger value='screenshot' className=''>
+          <TabsTrigger value='screenshot' className='font-semibold'>
             screenshot
           </TabsTrigger>
-          <TabsTrigger value='rawhtml' className=''>
+          <TabsTrigger value='rawhtml' className='font-semibold'>
             raw html
           </TabsTrigger>
         </TabsList>

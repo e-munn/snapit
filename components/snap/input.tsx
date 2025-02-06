@@ -39,7 +39,11 @@ export default function SnapInput({ form }: { form: any }) {
               render={({ field }) => (
                 <FormItem className='w-full'>
                   <FormControl>
-                    <Input placeholder='Enter webpage URL' {...field} className='w-full rounded-full p-6' />
+                    <Input
+                      placeholder='Paste URL'
+                      {...field}
+                      className='w-full rounded-full p-6 font-bold bg-secondary border-2'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -15,6 +15,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { Image } from 'lucide-react'
 
 export function TableDemo({ data }: { data: any }) {
+  console.log
   return (
     <Table>
       {/* <TableCaption>A list of all snapits taken</TableCaption> */}
@@ -23,6 +24,7 @@ export function TableDemo({ data }: { data: any }) {
           {/* <TableHead className='w-[20px]'>ID</TableHead> */}
           <TableHead>hostname</TableHead>
           <TableHead>when</TableHead>
+          <TableHead>user</TableHead>
           <TableHead>preview</TableHead>
           <TableHead>site</TableHead>
         </TableRow>
@@ -35,8 +37,27 @@ export function TableDemo({ data }: { data: any }) {
           .map((d: any) => (
             <TableRow key={d.id} className='hover:bg-gray-100 cursor-pointer'>
               {/* <TableCell className='font-medium'>{d.id}</TableCell> */}
-              <TableCell className='max-w-[220px] truncate font-semibold'>{d.URL?.hostname}</TableCell>
-              <TableCell>{d.from}</TableCell>
+              <TableCell className='max-w-[180px] truncate font-semibold'>{d.URL?.hostname}</TableCell>
+              <TableCell className='max-w-[80px] truncate'>{d.from}</TableCell>
+              <TableCell className='max-w-[100px] truncate'>
+                {d.user ? (
+                  <div
+                    style={{
+                      borderColor: d.user.color,
+                      borderWidth: '1px',
+                    }}
+                    className={`flex gap-3 items-center justify-start px-2 bg-opacity-50 rounded-full border `}
+                  >
+                    <img src={d.user.img} className='w-3 h-3' />
+                    <div className='text-xs font-semibold truncate' style={{ color: d.user.color }}>
+                      {d.user.name}
+                    </div>
+                  </div>
+                ) : (
+                  <div className='text-xs font-semibold opacity-20'>anonymous</div>
+                )}
+              </TableCell>
+
               <TableCell>
                 <HoverCard key={d.id}>
                   <HoverCardTrigger>

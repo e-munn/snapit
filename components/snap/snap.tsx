@@ -18,6 +18,11 @@ const formSchema = z.object({
   url: z.string().url({
     message: 'Must be valid URL',
   }),
+  user: z.object({
+    id: z.string(),
+    email: z.string(),
+    name: z.string(),
+  }),
   base64: z.string().optional(),
   rawhtml: z.string().optional(),
   timestamp: z.string().optional(),
@@ -27,10 +32,11 @@ const formSchema = z.object({
   i: z.number().optional(),
 })
 
-export default function Snap() {
+export default function Snap({ user }: { user: any }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      user: user,
       url: '',
       base64: '',
       rawhtml: '',

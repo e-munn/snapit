@@ -13,6 +13,7 @@ export default function Save({ form }: { form: any }) {
     const { data, error } = await supabase.from('snapit').insert([
       {
         data: { base64: form.watch('base64'), rawhtml: form.watch('rawhtml'), url: form.watch('url') },
+        user: form.watch('user'),
       },
     ])
     if (error) {
