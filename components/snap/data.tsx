@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { createClient } from '@/lib/supabase/browser-client'
 import { useState, useEffect } from 'react'
 import { TableDemo } from '@/components/snap/data/table'
+import moment from 'moment'
 import { LinChart } from './data/linchart'
 
 export default function Data({ form }: { form: any }) {
@@ -15,7 +16,11 @@ export default function Data({ form }: { form: any }) {
       .select('*')
       .then((res) => {
         if (res.error) return
-        setData(res.data)
+        let c = _.chain(res.data)
+          .map((d) => ({ ...d, from: moment(d.created_at).startOf('minutes').fromNow() }))
+          .map((d: any) => ({ ...d, URL: new URL(d.data.url) }))
+          .value()
+        setData(c)
       })
   }, [form.watch('i')])
 

@@ -1,7 +1,6 @@
 'use client'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import { useState, useEffect } from 'react'
-import moment from 'moment'
 import _ from 'lodash'
 
 export function LinChart({ data }: { data: any }) {
@@ -9,7 +8,6 @@ export function LinChart({ data }: { data: any }) {
 
   useEffect(() => {
     const step = _.chain(data)
-      .map((d) => ({ ...d, from: moment(d.created_at).startOf('minutes').fromNow() }))
       .groupBy('from')
       .map((v, k) => ({ time: k, posts: v.length, data: v }))
       .value()
