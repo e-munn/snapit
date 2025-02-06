@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function SnapTabs({ form }: { form: any }) {
+  console.log('form', form.watch('base64'))
   return (
     <>
       <Tabs defaultValue='screenshot' className='w-full'>

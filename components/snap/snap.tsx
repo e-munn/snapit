@@ -12,7 +12,7 @@ import Data from '@/components/snap/data'
 import { getFetch } from '@/app/actions/main.action'
 import { takeScreenshot } from '@/app/actions/screenshot.action'
 
-const HEIGHT = 1920
+const HEIGHT = 1920 * 1.5
 const WIDTH = 1080
 const formSchema = z.object({
   url: z.string().url({ message: 'Invalid URL' }),
@@ -52,11 +52,11 @@ export default function Snap({ user }: { user: any }) {
     let res0 = await getFetch(url)
     console.log('res0', res0)
 
-    let res1 = await takeScreenshot({ input: res0, type: 'html', size: { width: WIDTH, height: HEIGHT } })
+    let res1 = await takeScreenshot({ input: url, type: 'url', size: { width: WIDTH, height: HEIGHT } })
     console.log('res1', res1)
-    const base64Image = Buffer.from(res1).toString('base64')
-    console.log('base64Image', base64Image)
-    form.setValue('base64', base64Image)
+    // const base64Image = Buffer.from(res1).toString('base64')
+    // console.log('base64Image', base64Image)
+    form.setValue('base64', res1)
   }
 
   async function getRawHtml(url: string) {
@@ -75,7 +75,6 @@ export default function Snap({ user }: { user: any }) {
         form.setValue('loading2', true)
         getBase64(form.watch('url'))
           .then((v) => {
-            console.log(v)
             form.setValue('loading1', false)
             getRawHtml(form.watch('url')).then(() => {
               form.setValue('loading2', false)
