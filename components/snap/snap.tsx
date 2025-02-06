@@ -74,7 +74,8 @@ export default function Snap({ user }: { user: any }) {
         form.setValue('loading1', true)
         form.setValue('loading2', true)
         getBase64(form.watch('url'))
-          .then(() => {
+          .then((v) => {
+            console.log(v)
             form.setValue('loading1', false)
             getRawHtml(form.watch('url')).then(() => {
               form.setValue('loading2', false)
