@@ -13,7 +13,6 @@ export async function takeScreenshot({
   let data = await captureWebsite.buffer(input, {
     inputType: 'html',
     fullPage: true,
-    delay: 0.2,
     width: size.width,
   })
   return data

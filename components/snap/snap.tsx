@@ -22,7 +22,7 @@ const formSchema = z.object({
     name: z.string(),
   }),
   rate: z.boolean().nullable(),
-  base64: z.string().optional(),
+  base64: z.string().optional().nullable(),
   rawhtml: z.string().optional(),
   timestamp: z.string().optional(),
   loading1: z.boolean().optional(),
@@ -83,6 +83,7 @@ export default function Snap({ user }: { user: any }) {
             })
           })
           .catch((error) => {
+            form.setValue('base64', null)
             console.log(error)
             form.setValue('loading1', false)
             getRawHtml(form.watch('url')).then(() => {
