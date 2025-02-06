@@ -28,9 +28,10 @@ export default function Save({ form }: { form: any }) {
     }
     toast('success')
     form.setValue('loading3', false)
+
     form.setValue('i', form.watch('i') + 1)
     window.scrollBy({
-      top: 100, // Adjust this value for the desired scroll distance
+      top: 200, // Adjust this value for the desired scroll distance
       behavior: 'smooth', // Optional for smooth scrolling
     })
   }
@@ -51,7 +52,9 @@ export default function Save({ form }: { form: any }) {
         />
       </div>
       {form.watch('loading3') ? (
-        <Loader color='black' />
+        <div className='flex items-center justify-center w-full'>
+          <Loader color='orange' />
+        </div>
       ) : (
         <Button
           className={`font-semibold w-full bg-opacity-50 ${!_.isEmpty(form.watch('base64')) ? 'bg-green-700' : ''}`}

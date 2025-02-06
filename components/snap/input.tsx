@@ -37,6 +37,7 @@ export default function SnapInput({ form }: { form: any }) {
                 <FormItem className='w-full transition-all duration-300'>
                   <FormControl>
                     <Input
+                      onFocus={() => form.reset()}
                       placeholder='Paste URL'
                       {...field}
                       className='w-full rounded-full p-6 font-bold bg-secondary border-2 transition-all duration-300'
