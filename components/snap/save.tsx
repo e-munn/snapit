@@ -41,8 +41,8 @@ export default function Save({ form }: { form: any }) {
       <div
         className='flex gap-3'
         style={{
-          opacity: _.isEmpty(form.watch('base64')) ? 0.5 : 1,
-          pointerEvents: _.isEmpty(form.watch('base64')) ? 'none' : 'auto',
+          opacity: _.isEmpty(form.watch('rawhtml')) ? 0.5 : 1,
+          pointerEvents: _.isEmpty(form.watch('rawhtml')) ? 'none' : 'auto',
         }}
       >
         <ThumbsUp onClick={() => form.setValue('rate', true)} fill={form.watch('rate') ? 'green' : 'transparent'} />
@@ -57,9 +57,9 @@ export default function Save({ form }: { form: any }) {
         </div>
       ) : (
         <Button
-          className={`font-semibold w-full bg-opacity-50 ${!_.isEmpty(form.watch('base64')) ? 'bg-green-700' : ''}`}
+          className={`font-semibold w-full bg-opacity-50 ${!_.isEmpty(form.watch('rawhtml')) ? 'bg-green-700' : ''}`}
           onClick={save}
-          disabled={_.isEmpty(form.watch('base64'))}
+          disabled={_.isEmpty(form.watch('rawhtml'))}
         >
           PRESERVE
         </Button>

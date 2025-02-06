@@ -50,7 +50,7 @@ export default function SnapInput({ form }: { form: any }) {
             <div className={'w-20 h-20 flex justify-center items-center'}>
               {form.watch('loading1') ? (
                 <Loader color='orange' />
-              ) : form.watch('base64') ? (
+              ) : form.watch('rawhtml') ? (
                 <CircleCheck color='green' size={40} />
               ) : (
                 <Loader2 color={'#38bdf8'} />

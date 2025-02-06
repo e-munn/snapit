@@ -66,13 +66,22 @@ export default function Snap({ user }: { user: any }) {
     if (_.isEmpty(form.watch('url'))) return
     form.setValue('loading1', true)
     form.setValue('loading2', true)
-    getBase64(form.watch('url')).then(() => {
-      form.setValue('loading1', false)
-      getRawHtml(form.watch('url')).then(() => {
-        form.setValue('loading2', false)
-        form.setValue('timestamp', new Date().toISOString())
+    getBase64(form.watch('url'))
+      .then(() => {
+        form.setValue('loading1', false)
+        getRawHtml(form.watch('url')).then(() => {
+          form.setValue('loading2', false)
+          form.setValue('timestamp', new Date().toISOString())
+        })
       })
-    })
+      .catch((error) => {
+        console.log(error)
+        form.setValue('loading1', false)
+        getRawHtml(form.watch('url')).then(() => {
+          form.setValue('loading2', false)
+          form.setValue('timestamp', new Date().toISOString())
+        })
+      })
   }, [form.watch('url')])
 
   return (
