@@ -27,7 +27,7 @@ export default function SnapTabs({ form }: { form: any }) {
             </CardHeader>
             <CardContent className='space-y-2'>
               <div className='space-y-1 p-4 rounded-md'>
-                {form.watch('rawhtml') && <img src={`data:image/png;base64,${form.watch('rawhtml')}`} />}
+                {form.watch('base64') && <img src={`data:image/png;base64,${form.watch('base64')}`} />}
               </div>
             </CardContent>
             <CardFooter></CardFooter>

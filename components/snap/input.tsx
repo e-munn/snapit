@@ -37,23 +37,25 @@ export default function SnapInput({ form }: { form: any }) {
                 <FormItem className='w-full transition-all duration-300'>
                   <FormControl>
                     <Input
-                      onFocus={() => form.reset()}
+                      // onFocus={() => form.reset()}
                       placeholder='Paste URL'
                       {...field}
                       className='w-full rounded-full p-6 font-bold bg-secondary border-2 transition-all duration-300'
                     />
                   </FormControl>
-                  <FormMessage />
+                  <div className='h-8'>
+                    <FormMessage className='text-md font-semibold text-red-500' />
+                  </div>
                 </FormItem>
               )}
             />
-            <div className={'w-20 h-20 flex justify-center items-center'}>
+            <div className={'w-20 h-20 flex justify-center items-start'}>
               {form.watch('loading1') ? (
                 <Loader color='orange' />
               ) : form.watch('rawhtml') ? (
                 <CircleCheck color='green' size={40} />
               ) : (
-                <Loader2 color={'#38bdf8'} />
+                <Loader2 color={form.getFieldState('url')?.invalid ? '#ef4444' : '#38bdf8'} />
               )}
             </div>
           </form>

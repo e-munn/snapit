@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/browser-client'
 import { toast } from 'sonner'
 import Loader from '@/hooks/ldrs/loader'
-import { ThumbsUp, ThumbsDown } from 'lucide-react'
+import { ThumbsUp, ThumbsDown, CircleCheck, CircleAlert } from 'lucide-react'
 
 export default function Save({ form }: { form: any }) {
   const supabase = createClient()
@@ -23,10 +23,21 @@ export default function Save({ form }: { form: any }) {
       },
     ])
     if (error) {
-      toast('Error saving snap')
+      toast(
+        <div className='flex items-center p-2 gap-2'>
+          <CircleAlert size={20} className='stroke-red-500' />
+          <div className='text-red-500 text-md font-semibold'>error saving</div>
+        </div>
+      )
       form.setValue('loading3', false)
     }
-    toast('success')
+
+    toast(
+      <div className='flex items-center p-2 gap-2'>
+        <CircleCheck size={20} className='stroke-green-500' />
+        <div className='text-green-500 text-md font-semibold'>successfully saved</div>
+      </div>
+    )
     form.setValue('loading3', false)
 
     form.setValue('i', form.watch('i') + 1)
@@ -45,11 +56,13 @@ export default function Save({ form }: { form: any }) {
           pointerEvents: _.isEmpty(form.watch('rawhtml')) ? 'none' : 'auto',
         }}
       >
-        <ThumbsUp onClick={() => form.setValue('rate', true)} fill={form.watch('rate') ? 'green' : 'transparent'} />
-        <ThumbsDown
-          onClick={() => form.setValue('rate', false)}
-          fill={form.watch('rate') == false ? 'red' : 'transparent'}
-        />
+        <Button onClick={() => form.setValue('rate', true)} variant='outline'>
+          <ThumbsUp fill={form.watch('rate') ? 'green' : 'transparent'} />
+        </Button>
+
+        <Button onClick={() => form.setValue('rate', false)} variant='outline'>
+          <ThumbsDown fill={form.watch('rate') == false ? 'red' : 'transparent'} />
+        </Button>
       </div>
       {form.watch('loading3') ? (
         <div className='flex items-center justify-center w-full'>

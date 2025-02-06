@@ -15,9 +15,7 @@ import { takeScreenshot } from '@/app/actions/screenshot.action'
 const HEIGHT = 1920
 const WIDTH = 1080
 const formSchema = z.object({
-  url: z.string().url({
-    message: 'Must be valid URL',
-  }),
+  url: z.string().url({ message: 'Invalid URL' }),
   user: z.object({
     id: z.string(),
     email: z.string(),
@@ -52,8 +50,12 @@ export default function Snap({ user }: { user: any }) {
 
   async function getBase64(url: string) {
     let res0 = await getFetch(url)
+    console.log('res0', res0)
+
     let res1 = await takeScreenshot({ input: res0, type: 'html', size: { width: WIDTH, height: HEIGHT } })
+    console.log('res1', res1)
     const base64Image = Buffer.from(res1).toString('base64')
+    console.log('base64Image', base64Image)
     form.setValue('base64', base64Image)
   }
 
@@ -63,25 +65,32 @@ export default function Snap({ user }: { user: any }) {
   }
 
   useEffect(() => {
-    if (_.isEmpty(form.watch('url'))) return
-    form.setValue('loading1', true)
-    form.setValue('loading2', true)
-    getBase64(form.watch('url'))
-      .then(() => {
-        form.setValue('loading1', false)
-        getRawHtml(form.watch('url')).then(() => {
-          form.setValue('loading2', false)
-          form.setValue('timestamp', new Date().toISOString())
-        })
-      })
-      .catch((error) => {
-        console.log(error)
-        form.setValue('loading1', false)
-        getRawHtml(form.watch('url')).then(() => {
-          form.setValue('loading2', false)
-          form.setValue('timestamp', new Date().toISOString())
-        })
-      })
+    if (!form.getFieldState('url').isDirty) {
+      form.reset()
+      return
+    }
+    form.trigger('url').then((valid) => {
+      if (valid) {
+        form.setValue('loading1', true)
+        form.setValue('loading2', true)
+        getBase64(form.watch('url'))
+          .then(() => {
+            form.setValue('loading1', false)
+            getRawHtml(form.watch('url')).then(() => {
+              form.setValue('loading2', false)
+              form.setValue('timestamp', new Date().toISOString())
+            })
+          })
+          .catch((error) => {
+            console.log(error)
+            form.setValue('loading1', false)
+            getRawHtml(form.watch('url')).then(() => {
+              form.setValue('loading2', false)
+              form.setValue('timestamp', new Date().toISOString())
+            })
+          })
+      }
+    })
   }, [form.watch('url')])
 
   return (
@@ -94,8 +103,8 @@ export default function Snap({ user }: { user: any }) {
             style={{ originY: 0 }}
             initial={{ opacity: 0, height: 0 }}
             animate={{
-              opacity: !_.isEmpty(form.watch('url')) ? 1 : 0,
-              height: !_.isEmpty(form.watch('url')) ? 'auto' : 0,
+              opacity: !form.getFieldState('url').invalid && form.getFieldState('url').isDirty ? 1 : 0,
+              height: !form.getFieldState('url').invalid && form.getFieldState('url').isDirty ? 'auto' : 0,
             }}
             transition={{ duration: 1, delay: 0.2 }}
           >
@@ -106,7 +115,6 @@ export default function Snap({ user }: { user: any }) {
               <Save form={form} />
             </div>
           </motion.div>
-
           <motion.div
             className='flex justify-center px-4 gap-12'
             style={{ originY: 0 }}

@@ -35,7 +35,7 @@ export function LinChart({ data }: { data: any }) {
               color: '#FFF',
             }}
           />
-          <Line dataKey='posts' stroke={'#8b5cf6'} strokeWidth={4} />
+          <Line dataKey='posts' stroke={'#ddd6fe'} strokeWidth={4} />
         </LineChart>
       )}
     </>
