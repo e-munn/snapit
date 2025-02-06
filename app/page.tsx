@@ -1,4 +1,4 @@
-import Curtain from '@/components/curtain/curtain'
+import Snap from '@/components/snap/snap'
 import _ from 'lodash'
 import Header from '@/components/head/header'
 import Footer from '@/components/head/footer'
@@ -8,7 +8,7 @@ export default async function Index() {
     <>
       <div className='w-screen min-h-screen' suppressHydrationWarning>
         <Header />
-        <Curtain />
+        <Snap />
         <Footer />
       </div>
     </>
