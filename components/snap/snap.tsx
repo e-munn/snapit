@@ -24,6 +24,7 @@ const formSchema = z.object({
   loading1: z.boolean().optional(),
   loading2: z.boolean().optional(),
   loading3: z.boolean().optional(),
+  i: z.number().optional(),
 })
 
 export default function Snap() {
@@ -37,6 +38,7 @@ export default function Snap() {
       loading1: false,
       loading2: false,
       loading3: false,
+      i: 0,
     },
   })
 
@@ -68,7 +70,7 @@ export default function Snap() {
   return (
     <>
       <div className='w-full min-h-screen flex flex-col overflow-x-hidden '>
-        <main className='container mx-auto px-4 py-16 space-y-12 max-w-[700px]'>
+        <div className='container mx-auto px-4 py-16 space-y-12 max-w-[700px]'>
           <SnapInput form={form} />
           <section className='flex justify-center px-4 gap-12'>
             <Tabs form={form} />
@@ -79,7 +81,7 @@ export default function Snap() {
           <section className='flex justify-center px-4 gap-12'>
             <Data form={form} />
           </section>
-        </main>
+        </div>
       </div>
     </>
   )

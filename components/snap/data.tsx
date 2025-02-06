@@ -17,11 +17,10 @@ export default function Data({ form }: { form: any }) {
         if (res.error) return
         setData(res.data)
       })
-  }, [])
-  console.log(data)
+  }, [form.watch('i')])
 
   return (
-    <section className='flex flex-col gap-12'>
+    <section className='flex flex-col gap-24 py-24'>
       <TableDemo data={data} />
       <LinChart data={data} />
     </section>

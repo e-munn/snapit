@@ -45,7 +45,7 @@ export default function SnapInput({ form }: { form: any }) {
                 </FormItem>
               )}
             />
-            {form.watch('loading1') && <Loader color='blue' />}
+            {form.watch('loading1') && <Loader color='black' />}
           </form>
         </Form>
       </section>

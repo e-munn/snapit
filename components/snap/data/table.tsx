@@ -13,7 +13,7 @@ import {
 export function TableDemo({ data }: { data: any }) {
   return (
     <Table>
-      <TableCaption>A list of all snapits taken</TableCaption>
+      {/* <TableCaption>A list of all snapits taken</TableCaption> */}
       <TableHeader>
         <TableRow>
           <TableHead className='w-[100px]'>ID</TableHead>
