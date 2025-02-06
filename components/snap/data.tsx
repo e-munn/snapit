@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react'
 import { TableDemo } from '@/components/snap/data/table'
 import moment from 'moment'
 import { LinChart } from './data/linchart'
-
+import { Skeleton } from '@/components/ui/skeleton'
 export default function Data({ form }: { form: any }) {
   const supabase = createClient()
-  const [data, setData] = useState<any[]>([])
+  const [data, setData] = useState<any[] | null>(null)
   useEffect(() => {
     supabase
       .from('snapit')
@@ -26,8 +26,10 @@ export default function Data({ form }: { form: any }) {
 
   return (
     <section className='flex flex-col gap-24 py-24'>
-      <TableDemo data={data} />
-      <LinChart data={data} />
+      <>
+        <TableDemo data={data} />
+        <LinChart data={data} />
+      </>
     </section>
   )
 }

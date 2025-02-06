@@ -21,8 +21,21 @@ export function LinChart({ data }: { data: any }) {
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='time' tick={{ fontSize: 12 }} />
           <YAxis dataKey='posts' tick={{ fontSize: 12 }} />
-          <Tooltip />
-          <Line dataKey='posts' stroke='#8884d8' />
+          <Tooltip
+            wrapperStyle={{
+              background: 'rgba(15,23,42,0)',
+              borderRadius: '8px',
+            }}
+            contentStyle={{
+              background: 'rgba(15,23,42,0.9)',
+              borderRadius: '8px',
+              borderColor: 'rgba(51,65,85,0.9)',
+            }}
+            itemStyle={{
+              color: '#FFF',
+            }}
+          />
+          <Line dataKey='posts' stroke={'#8b5cf6'} strokeWidth={4} />
         </LineChart>
       )}
     </>

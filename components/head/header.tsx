@@ -9,7 +9,7 @@ export default function Header({}: {}) {
       <header className={`absolute z-30 pointer-events-none	w-full p-2`}>
         <Link href='/' className='pointer-events-auto'>
           <div className='flex flex-row items-center justify-start'>
-            <div className='p-1 text-2xl font-semibold font-tiny5'>SnapIt</div>
+            <div className='p-1 px-2 text-4xl font-semibold font-tiny5'>SnapIt</div>
           </div>
         </Link>
       </header>

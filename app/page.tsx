@@ -15,14 +15,33 @@ export default function Index() {
       setValue({
         name: faker.system.fileName(),
         img: faker.image.avatar(),
-        color: faker.internet.color(),
+        color: _.sample([
+          'red',
+          'blue',
+          'green',
+          'lime',
+          'emerald',
+          'teal',
+          'cyan',
+          'orange',
+          'purple',
+          'pink',
+          'sky',
+          'indigo',
+          'violet',
+          'purple',
+          'fuschia',
+          'pink',
+          'rose',
+        ]),
+        color_number: _.sample(['100', '200', '300', '400', '500']),
       })
     }
   }, [])
 
   return (
     <>
-      <div className='w-full min-h-screen overflow-x-hidden' suppressHydrationWarning>
+      <div className='w-full min-h-screen overflow-x-hidden bg-background' suppressHydrationWarning>
         <Header />
         <Snap user={value} />
         <Footer />

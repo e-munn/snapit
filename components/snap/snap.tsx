@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import _ from 'lodash'
-
+import { motion } from 'framer-motion'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -23,6 +23,7 @@ const formSchema = z.object({
     email: z.string(),
     name: z.string(),
   }),
+  rate: z.boolean().nullable(),
   base64: z.string().optional(),
   rawhtml: z.string().optional(),
   timestamp: z.string().optional(),
@@ -38,6 +39,7 @@ export default function Snap({ user }: { user: any }) {
     defaultValues: {
       user: user,
       url: '',
+      rate: null,
       base64: '',
       rawhtml: '',
       timestamp: '',
@@ -75,18 +77,39 @@ export default function Snap({ user }: { user: any }) {
 
   return (
     <>
-      <div className='w-full min-h-screen flex flex-col overflow-x-hidden '>
+      <div className='w-full min-h-screen flex flex-col overflow-x-hidden'>
         <div className='container mx-auto px-4 py-16 space-y-12 max-w-[700px]'>
           <SnapInput form={form} />
-          <section className='flex justify-center px-4 gap-12'>
-            <Tabs form={form} />
-          </section>
-          <section className='flex justify-center px-4 gap-12'>
-            <Save form={form} />
-          </section>
-          <section className='flex justify-center px-4 gap-12'>
+          <motion.div
+            className='flex flex-col gap-12'
+            style={{ originY: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{
+              opacity: !_.isEmpty(form.watch('url')) ? 1 : 0,
+              height: !_.isEmpty(form.watch('url')) ? 'auto' : 0,
+            }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <div className='flex justify-center px-4 gap-12'>
+              <Tabs form={form} />
+            </div>
+            <div className='flex justify-center px-4 gap-12'>
+              <Save form={form} />
+            </div>
+          </motion.div>
+
+          <motion.div
+            className='flex justify-center px-4 gap-12'
+            style={{ originY: 0 }}
+            initial={{ opacity: 0, scaleY: 0 }}
+            animate={{
+              opacity: 1,
+              scaleY: 1,
+            }}
+            transition={{ duration: 2, delay: 0.8 }}
+          >
             <Data form={form} />
-          </section>
+          </motion.div>
         </div>
       </div>
     </>
