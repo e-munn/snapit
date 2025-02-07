@@ -10,7 +10,10 @@ export async function takeScreenshot({
   type: string
   size: { width: number; height: number }
 }) {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
   const page = await browser.newPage()
   await page.setViewport({ width: size.width ?? 1080, height: size.height ?? 1920 })
   await page.goto(input, { waitUntil: 'networkidle0' })
