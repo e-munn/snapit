@@ -1,5 +1,7 @@
 'use server'
 
+import { head } from 'lodash'
+
 const puppeteer = require('puppeteer')
 
 export async function takeScreenshot({
@@ -12,8 +14,9 @@ export async function takeScreenshot({
   size: { width: number; height: number }
 }) {
   const browser = await puppeteer.launch({
+    headless: true,
     ignoreHTTPSErrors: true,
-    executablePath: process.env.CHROME_PATH || '/opt/bin/chromium',
+    // executablePath: process.env.CHROME_PATH || '/opt/bin/chromium',
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
   const page = await browser.newPage()
