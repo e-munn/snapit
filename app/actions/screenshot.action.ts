@@ -1,4 +1,7 @@
 'use server'
+
+import { exec } from 'child_process'
+
 const puppeteer = require('puppeteer')
 
 export async function takeScreenshot({
@@ -11,12 +14,13 @@ export async function takeScreenshot({
   size: { width: number; height: number }
 }) {
   const browser = await puppeteer.launch({
-    headless: true,
+    ignoreHTTPSErrors: true,
+    executablePath: '/opt/bin/chromium',
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
   const page = await browser.newPage()
   await page.setViewport({ width: size.width ?? 1080, height: size.height ?? 1920 })
-  await page.goto(input, { waitUntil: 'networkidle0' })
+  await page.goto(input, { waitUntil: 'networkidle2' })
   const base64 = await page.screenshot({ encoding: 'base64' })
 
   await browser.close()
