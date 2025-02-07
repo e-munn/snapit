@@ -1,7 +1,5 @@
 'use server'
 
-import { exec } from 'child_process'
-
 const puppeteer = require('puppeteer')
 
 export async function takeScreenshot({
@@ -15,7 +13,7 @@ export async function takeScreenshot({
 }) {
   const browser = await puppeteer.launch({
     ignoreHTTPSErrors: true,
-    executablePath: '/opt/bin/chromium',
+    executablePath: process.env.CHROME_PATH || '/opt/bin/chromium',
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
   const page = await browser.newPage()
